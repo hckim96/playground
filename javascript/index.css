@@ -1,3 +1,14 @@
 .hide {
     display: none;
 }
+.center {
+    text-align: center;
+}
+.background-image {
+    z-index: -1;
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    top: 0;
+}
