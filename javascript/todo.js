@@ -8,14 +8,18 @@ function handleDeleteButtonClick(e) {
     e.preventDefault();
     const button = e.target;
     const li = button.parentNode;
-    console.log(li);
-}
-function paintTodo(text) {
-    const li = document.createElement('li');
-    li.id = todos.length === 0 ? 0 : todos[todos.length - 1].id + 1;
 
+    todos = todos.filter(function (todo) {
+        return todo.id != li.id;
+    });
+    todoList.removeChild(li);
+    saveTodos();
+}
+function paintTodo(todo) {
+    const li = document.createElement('li');
+    li.id = todo.id;
     const span = document.createElement('span');
-    span.innerText = text;
+    span.innerText = todo.text;
 
     const deleteButton = document.createElement('button');
     deleteButton.innerText = '❌';
@@ -25,10 +29,14 @@ function paintTodo(text) {
     todoList.appendChild(li);
 }
 function loadTodos() {
-    todos = JSON.parse(localStorage.getItem(TODO_LS));
-    todos.forEach(function (todo) {
-        addTodo(todo.text);
-    });
+    parsedTodos = JSON.parse(localStorage.getItem(TODO_LS));
+    console.log(parsedTodos);
+    if (parsedTodos !== null) {
+        todos = parsedTodos;
+        todos.forEach(function (todo) {
+            paintTodo(todo);
+        });
+    }
 }
 
 function saveTodos() {
@@ -36,14 +44,12 @@ function saveTodos() {
 }
 
 function addTodo(text) {
-    paintTodo(text);
-
     const todo = {
         text: text,
         id: todos.length === 0 ? 0 : todos[todos.length - 1].id + 1,
     };
+    paintTodo(todo);
     todos.push(todo);
-    console.log(todos);
     saveTodos();
 }
 function handleSubmit(e) {
