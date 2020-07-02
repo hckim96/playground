@@ -25,8 +25,14 @@ function success(position) {
 function fail() {
     console.log('fail to get coords');
 }
+
+const options = {
+    enableHighAccuracy: true,
+    maximumAge: 1,
+    timeout: 1,
+};
 function getCoords() {
-    navigator.geolocation.getCurrentPosition(success, fail);
+    navigator.geolocation.watchPosition(success, fail, options);
 }
 
 function loadWeather() {
@@ -35,6 +41,7 @@ function loadWeather() {
     if (currentCoords === null) {
         getCoords();
     } else {
+        getCoords();
     }
 }
 
