@@ -19,13 +19,19 @@ function getWeather(lat, lon) {
         })
 
         .then(function (weatherObj) {
-            weather.innerText = ` ${weatherObj.name}  ${weatherObj.main.temp} ℃`;
+            const image = new Image();
+
+            image.src = `http://openweathermap.org/img/wn/${weatherObj.weather[0].icon}@2x.png`;
+            image.classList.add('weather-image');
+            weather.innerText = ` ${weatherObj.name} ${weatherObj.main.temp} ℃`;
+            console.log(weatherObj);
+
+            weather.appendChild(image);
         });
 }
 function success(position) {
     const lat = position.coords.latitude;
     const lon = position.coords.longitude;
-    console.log(`lat=${lat}&lon=${lon}`);
     getWeather(lat, lon);
 }
 function fail() {

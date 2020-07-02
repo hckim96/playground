@@ -41,3 +41,48 @@ body {
     bottom: 10px;
     font-weight: bold;
 }
+
+input {
+    margin-top: 0.5rem;
+    background-color: inherit;
+    border: none;
+    border-bottom: 2px solid black;
+    font-weight: bolder;
+    outline: none;
+}
+
+.form-text {
+    font-weight: bold;
+}
+.todo-list {
+    font-weight: bold;
+}
+
+.form-delete {
+}
+
+button {
+    background-color: inherit;
+    border: 1.5px solid black;
+    border-radius: 3px;
+}
+button:hover {
+    cursor: pointer;
+    background: gray;
+}
+.todo-delete {
+    border: none;
+}
+
+.weather {
+    align-items: center;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+    width: 150px;
+}
+.weather-image {
+    height: 40px;
+    width: 40px;
+}

@@ -14,7 +14,6 @@ function getUserName() {
 
 function handleSubmit(e) {
     e.preventDefault();
-    console.log(e.target.querySelector('.form-input').value);
     saveUserName(formInput.value);
     greeting(formInput.value);
     formInput.value = '';
