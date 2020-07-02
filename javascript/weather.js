@@ -28,8 +28,8 @@ function fail() {
 
 const options = {
     enableHighAccuracy: true,
-    maximumAge: 1,
-    timeout: 1,
+    maximumAge: 30000,
+    timeout: 27000,
 };
 function getCoords() {
     navigator.geolocation.watchPosition(success, fail, options);
