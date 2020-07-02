@@ -1,46 +1,56 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>index title</title>
-        <link rel="stylesheet" type="text/css" href='./index.css'/>
-    </head>
-    <body>
-        <div class = 'center'>
+
+<head>
+    <title>index title</title>
+    <link rel="stylesheet" type="text/css" href='./index.css' />
+</head>
+
+<body>
+    <div class='center'>
 
         <div class="clock-wrapper">
             <h1 class="clock">
                 1234
             </h1>
         </div>
-        <form class = 'form-wrapper'>
-            <input class="form-input" type = 'text' placeholder="input your name"></input>
-            <div class="form-text"></div>
-            
-        </form>
-        <button class = 'form-delete'>logout</button>
+        <div style="display: flex">
+            <form class='form-wrapper'>
+                <input class="form-input" type='text' placeholder="input your name"></input>
+                <div class="form-text"></div>
 
-        <form class = 'todo-form'>
-            <input type = 'text' class = 'todo-form-input' placeholder="input todo"/>
+            </form>
+            <button class='form-delete' style="margin-left: 1rem;">logout</button>
+        </div>
+
+
+        <form class='todo-form'>
+            <input type='text' class='todo-form-input' placeholder="input todo" />
         </form>
-        <div class = 'todo-list'>
+        <div class='todo-list'>
 
         </div>
         <button onclick="a( )">
             clear localStorage
         </button>
+        <div class = 'weather'>
+            
+        </div>
     </div>
-        <script src="index.js"></script>
-        <script src="clock.js"></script>
-        <script src="form.js"></script>
-        <script src="todo.js"></script>
 
-        <script>
-            function a ( ) {
-                localStorage.clear();
-            }
-        </script>
-        <script src="background.js"></script>
-        <script src="weather.js"></script>
+    <script src="index.js"></script>
+    <script src="clock.js"></script>
+    <script src="form.js"></script>
+    <script src="todo.js"></script>
 
-    </body>
+    <script>
+        function a() {
+            localStorage.clear();
+        }
+    </script>
+    <script src="background.js"></script>
+    <script src="weather.js"></script>
+
+</body>
+
 </html>
