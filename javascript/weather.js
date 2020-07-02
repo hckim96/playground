@@ -6,7 +6,12 @@ const weather = document.querySelector('.weather');
 
 function getWeather(lat, lon) {
     fetch(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
+        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${
+            // lon - 0.041962
+            // lon - 0.092273
+            lon - 0.0671175
+            //
+        }&APPID=${API_KEY}&units=metric`
     )
         .then(function (response) {
             const weatherObj = response.json();
@@ -20,6 +25,7 @@ function getWeather(lat, lon) {
 function success(position) {
     const lat = position.coords.latitude;
     const lon = position.coords.longitude;
+    console.log(`lat=${lat}&lon=${lon}`);
     getWeather(lat, lon);
 }
 function fail() {
@@ -32,17 +38,19 @@ const options = {
     timeout: 27000,
 };
 function getCoords() {
-    navigator.geolocation.watchPosition(success, fail, options);
+    navigator.geolocation.getCurrentPosition(success, fail, options);
 }
 
 function loadWeather() {
-    currentCoords = localStorage.getItem(COORDS);
+    currentCoords = JSON.parse(localStorage.getItem(COORDS));
 
     if (currentCoords === null) {
         getCoords();
     } else {
-        getCoords();
+        getWeather(currentCoords.lat, currentCoords.lon);
     }
 }
 
 loadWeather();
+
+// 37.6 - 127.14

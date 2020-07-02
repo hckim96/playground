@@ -30,14 +30,15 @@
         <div class='todo-list'>
 
         </div>
-        <button onclick="a( )">
-            clear localStorage
-        </button>
-        <div class = 'weather'>
-            
-        </div>
+       
+        
     </div>
-
+    <div class = 'weather'>
+            
+    </div>
+    <button class = 'clear-local-storage' onclick="a( )">
+        clear localStorage
+    </button>
     <script src="index.js"></script>
     <script src="clock.js"></script>
     <script src="form.js"></script>
@@ -46,6 +47,7 @@
     <script>
         function a() {
             localStorage.clear();
+            location.reload();
         }
     </script>
     <script src="background.js"></script>
