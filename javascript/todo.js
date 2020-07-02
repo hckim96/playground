@@ -30,7 +30,6 @@ function paintTodo(todo) {
 }
 function loadTodos() {
     parsedTodos = JSON.parse(localStorage.getItem(TODO_LS));
-    console.log(parsedTodos);
     if (parsedTodos !== null) {
         todos = parsedTodos;
         todos.forEach(function (todo) {

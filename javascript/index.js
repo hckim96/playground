@@ -1,7 +1,4 @@
-// queryselector, eventlistener, classList (toggle: add, remove)
 
-console.log(document.querySelector('.h1class'));
-console.log(document.querySelector('#h1id'));
 
 const headerTitle = document.querySelector('.h1class');
 
