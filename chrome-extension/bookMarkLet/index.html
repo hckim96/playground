@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>BookMarkLet</title>
+    </head>
+    <body>
+        <h1>BookMarkLet</h1>
+
+        <p>
+            This is a
+
+            <a
+                href="javascript:(function () {
+                    let script = document.createElement('script');
+                    script.src = 'http://localhost:5500/chrome-extension/bookMarkLet/bookMarkLet.js';
+                    document.body.appendChild(script);
+                })()
+            "
+                >BookMarkLet</a
+            >
+        </p>
+    </body>
+</html>
