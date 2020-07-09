@@ -2,16 +2,27 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import * as Location from 'expo-location';
-// import axios from 'axios';
-// const API_KEY;
+import axios from 'axios';
+const API_KEY = 'f45610611a10099a1ac47767f60fb43c';
 
-// const getWeather(latitude, longitude){
-
-// }
+const getWeather = async (latitude, longitude) => {
+    const response = await axios.get(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`
+    );
+    return response.data.weather[0];
+};
+//asdf
 const getLocation = async () => {
-    const result = await Location.getCurrentPositionAsync();
-    console.log(result.coords.latitude, result.coords.longitude);
-    return result.coords;
+    try {
+        let { status } = await Location.requestPermissionsAsync();
+        if (status !== 'granted') {
+            console.log('not granted');
+            throw Error();
+        }
+        const result = await Location.getCurrentPositionAsync();
+
+        return result.coords;
+    } catch (e) {}
 };
 
 export default class App extends React.Component {
@@ -20,19 +31,30 @@ export default class App extends React.Component {
     };
     async componentDidMount() {
         const coords = await getLocation();
-        console.log(coords);
+        const weather = await getWeather(coords.latitude, coords.longitude);
+
+        // console.log(coords);
+        // console.log(weather);
         this.setState({
-            coords: { latitude: coords.latitude, longitude: coords.longitude },
+            coords: {
+                latitude: coords.latitude,
+                longitude: coords.longitude,
+            },
+            weather: weather,
         });
     }
 
     render() {
-        const { coords } = this.state;
-
+        const { coords, weather } = this.state;
+        // console.log(`in render::${JSON.stringify(weather)}`);
         return (
             <View style={styles.container}>
                 <Text>
                     latitude : {coords.latitude} longitude: {coords.longitude}
+                </Text>
+                <Text>
+                    weather : {weather ? weather.main : ''} description :
+                    {weather ? weather.description : ''}
                 </Text>
                 <StatusBar style='auto' />
             </View>
