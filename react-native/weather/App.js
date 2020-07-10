@@ -7,9 +7,10 @@ import Weather from './Weather';
 
 const API_KEY = 'f45610611a10099a1ac47767f60fb43c';
 
-const getWeather = async (latitude, longitude) => {
+const getWeather = async () => {
+    const coords = await getCoords();
     const response = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`
+        `https://api.openweathermap.org/data/2.5/weather?lat=${coords.latitude}&lon=${coords.longitude}&appid=${API_KEY}&units=metric`
     );
     // console.log(response.data.sys.country);
     return {
@@ -59,7 +60,7 @@ export default class App extends React.Component {
         console.log('componentdid mount');
         const coords = await getCoords();
 
-        const weather = await getWeather(coords.latitude, coords.longitude);
+        const weather = await getWeather();
 
         // console.log(coords);
         // console.log(weather);

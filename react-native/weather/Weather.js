@@ -11,6 +11,7 @@ const weatherList = {
     Drizzle: { iconName: 'weather-rainy', colors: ['#2c3e50', '#bdc3c7'] },
     Rain: { iconName: 'weather-pouring', colors: ['#2c3e50', '#bdc3c7'] },
     Snow: { iconName: 'weather-snowy', colors: ['#2c3e50', '#bdc3c7'] },
+    Clouds: { iconName: 'weather-cloudy', colors: ['#2c3e50', '#bdc3c7'] },
 
     Mist: { iconName: 'weather-hazy', colors: ['#636363', '#a2ab58'] },
     Smoke: { iconName: 'weather-hazy', colors: ['#636363', '#a2ab58'] },
@@ -27,7 +28,6 @@ const weatherList = {
         iconName: 'weather-sunny',
         colors: ['#2980b9', '#2980b9', '#6dd5fa', '#6dd5fa', '#ffffff'],
     },
-    Clouds: { iconName: 'weather-cloudy', colors: ['#2c3e50', '#bdc3c7'] },
 };
 
 export default Weather = (props) => {
