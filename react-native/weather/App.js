@@ -9,13 +9,7 @@ const API_KEY = 'f45610611a10099a1ac47767f60fb43c';
 
 const getWeather = async (latitude, longitude) => {
     const response = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${
-            // lon - 0.041962
-            // lon - 0.092273
-            // longitude - 0.0671175
-            longitude - 0.07969525
-            //
-        }&appid=${API_KEY}&units=metric`
+        `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`
     );
     // console.log(response.data.sys.country);
     return {
@@ -26,15 +20,18 @@ const getWeather = async (latitude, longitude) => {
     };
 };
 //asdf
-const getLocation = async () => {
+
+const getCoords = async () => {
     try {
         let { status } = await Location.requestPermissionsAsync();
         if (status !== 'granted') {
-            console.log('not granted');
             throw Error();
         } else {
+            console.log('got location permission');
             const result = await Location.getCurrentPositionAsync({
                 accuracy: Location.Accuracy.High,
+                timeout: 10000,
+                maximumAge: 1000,
             });
             // console.log(`result : ${result}`);
             return result.coords;
@@ -50,9 +47,17 @@ export default class App extends React.Component {
         coords: { latitude: 0, longitude: 0 },
         isLoading: true,
     };
+    updateLocation = async () => {
+        const coords = await getCoords();
+        this.setState({
+            coords: coords,
+        });
+        return coords;
+    };
 
     async componentDidMount() {
-        const coords = await getLocation();
+        console.log('componentdid mount');
+        const coords = await getCoords();
 
         const weather = await getWeather(coords.latitude, coords.longitude);
 
@@ -63,11 +68,19 @@ export default class App extends React.Component {
             weather: weather,
             isLoading: false,
         });
+        Location.watchPositionAsync(
+            {
+                accuracy: Location.Accuracy.High,
+                timeInterval: 10000,
+            },
+            this.updateLocation
+        );
     }
 
     render() {
         const { coords, weather, isLoading } = this.state;
         // console.log(`in render::${JSON.stringify(weather)}`);
+
         console.log(isLoading);
 
         // return {isLoading ?
