@@ -9,7 +9,13 @@ const API_KEY = 'f45610611a10099a1ac47767f60fb43c';
 
 const getWeather = async (latitude, longitude) => {
     const response = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`
+        `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${
+            // lon - 0.041962
+            // lon - 0.092273
+            // longitude - 0.0671175
+            longitude - 0.07969525
+            //
+        }&appid=${API_KEY}&units=metric`
     );
     // console.log(response.data.sys.country);
     return {
@@ -42,6 +48,7 @@ const getLocation = async () => {
 export default class App extends React.Component {
     state = {
         coords: { latitude: 0, longitude: 0 },
+        isLoading: true,
     };
 
     async componentDidMount() {
@@ -50,38 +57,53 @@ export default class App extends React.Component {
         const weather = await getWeather(coords.latitude, coords.longitude);
 
         // console.log(coords);
-        console.log(weather);
+        // console.log(weather);
         this.setState({
             coords: coords,
             weather: weather,
+            isLoading: false,
         });
     }
 
     render() {
-        const { coords, weather } = this.state;
+        const { coords, weather, isLoading } = this.state;
         // console.log(`in render::${JSON.stringify(weather)}`);
-        return (
-            <View style={styles.container}>
-                {/* <Text>
-                    latitude : {coords && coords.latitude} longitude:
-                    {coords && coords.longitude}
-                </Text>
-                <Text>
-                    weather : {weather ? weather.main : ''} description :
-                    {weather ? weather.description : ''}
-                </Text> */}
-                <Weather coords={coords} weather={weather}></Weather>
-                <StatusBar style='auto' />
-            </View>
-        );
+        console.log(isLoading);
+
+        // return {isLoading ?
+        //     <View style = {styles.container}>
+        //         <Text style={{ textAlignVertical: 'center' }}>
+        //             isLoading is true
+        //         </Text>
+        //     </View>
+        //  :
+        //     <Weather coords={coords} weather={weather}></Weather>
+        // }
+        if (isLoading) {
+            return (
+                <View style={styles.container}>
+                    <Text style={styles.text}>Loading...</Text>
+                </View>
+            );
+        } else {
+            return <Weather coords={coords} weather={weather}></Weather>;
+        }
     }
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white',
-        // alignItems: 'center',
-        // justifyContent: 'center',
+
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 'auto',
+        textAlignVertical: 'center',
+    },
+
+    text: {
+        color: 'black',
+        fontSize: 23,
+        fontWeight: '500',
     },
 });
