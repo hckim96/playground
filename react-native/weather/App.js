@@ -12,7 +12,6 @@ const getWeather = async () => {
     const response = await axios.get(
         `https://api.openweathermap.org/data/2.5/weather?lat=${coords.latitude}&lon=${coords.longitude}&appid=${API_KEY}&units=metric`
     );
-    // console.log(response.data.sys.country);
     return {
         ...response.data.weather[0],
         ...response.data.main,
@@ -20,7 +19,6 @@ const getWeather = async () => {
         country: response.data.sys.country,
     };
 };
-//asdf
 
 const getCoords = async () => {
     try {
@@ -48,22 +46,25 @@ export default class App extends React.Component {
         coords: { latitude: 0, longitude: 0 },
         isLoading: true,
     };
-    updateLocation = async () => {
-        const coords = await getCoords();
-        this.setState({
-            coords: coords,
-        });
-        return coords;
-    };
 
+    update = async () => {
+        this.setState({
+            isLoading: true,
+        });
+        const coords = await getCoords();
+        const weather = await getWeather();
+        this.setState({
+            coords,
+            weather,
+            isLoading: false,
+        });
+    };
     async componentDidMount() {
         console.log('componentdid mount');
         const coords = await getCoords();
 
         const weather = await getWeather();
 
-        // console.log(coords);
-        // console.log(weather);
         this.setState({
             coords: coords,
             weather: weather,
@@ -74,25 +75,15 @@ export default class App extends React.Component {
                 accuracy: Location.Accuracy.High,
                 timeInterval: 10000,
             },
-            this.updateLocation
+            this.update
         );
     }
 
     render() {
         const { coords, weather, isLoading } = this.state;
-        // console.log(`in render::${JSON.stringify(weather)}`);
 
         console.log(isLoading);
 
-        // return {isLoading ?
-        //     <View style = {styles.container}>
-        //         <Text style={{ textAlignVertical: 'center' }}>
-        //             isLoading is true
-        //         </Text>
-        //     </View>
-        //  :
-        //     <Weather coords={coords} weather={weather}></Weather>
-        // }
         if (isLoading) {
             return (
                 <View style={styles.container}>
