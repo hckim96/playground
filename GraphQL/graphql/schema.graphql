@@ -8,8 +8,3 @@ type Query {
     Movies: [Movie]!
     Movie(id: Int!): Movie
 }
-
-type Mutation {
-    addMovie(name: String!, score: Int!): Movie!
-    deleteMovie(id: Int!): Boolean!
-}
